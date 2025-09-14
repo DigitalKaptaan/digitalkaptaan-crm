@@ -1,0 +1,52 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Overlay for mobile */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+/* Content */
+.content {
+  flex: 1;
+  background: #f9fafb; /* light gray */
+  padding: 2rem;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.mainContent {
+  margin-top: 0px;
+}
+
+/* Toggle Button (only on mobile) */
+.toggleBtn {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #111827;
+  color: white;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+@media (max-width: 768px) {
+  .toggleBtn {
+    display: block;
+  }
+
+  .mainContent {
+    margin-top: 50px;
+  }
+}
