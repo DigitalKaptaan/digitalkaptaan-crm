@@ -2,9 +2,7 @@ import { Breadcrumb } from "@/components";
 import { LayoutWrapper } from "@/layout";
 import React from "react";
 
-type Props = {};
-
-const page = (props: Props) => {
+const page = () => {
   return (
     <LayoutWrapper>
       <Breadcrumb />

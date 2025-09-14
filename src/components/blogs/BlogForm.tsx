@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "@/styles/components/blogForm.module.css";
 import { Editor } from "@tinymce/tinymce-react";
 import { Input } from "@/shared";
+import Image from "next/image";
 
 type BlogFormProps = {
   type: "CREATE" | "EDIT";
@@ -149,10 +150,12 @@ const BlogForm: React.FC<BlogFormProps> = ({ type, initialData, onSubmit }) => {
             label={"Cover Image URL"}
           />
           {formData.coverImage && (
-            <img
+            <Image
               src={formData.coverImage}
               alt="Cover Preview"
               className={styles.imagePreview}
+              width={200}
+              height={200}
             />
           )}
         </div>
@@ -178,10 +181,12 @@ const BlogForm: React.FC<BlogFormProps> = ({ type, initialData, onSubmit }) => {
             label={"Cover Image URL"}
           />
           {formData.coverImage && (
-            <img
+            <Image
               src={formData.coverImage}
               alt="Cover Preview"
               className={styles.imagePreview}
+              width={200}
+              height={200}
             />
           )}
         </div>

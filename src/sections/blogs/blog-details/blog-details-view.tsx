@@ -34,7 +34,7 @@ const BlogDetailsView = ({ details, slug, type }: Props) => {
       content: string;
       status: string;
       coverImage: string;
-      coverFile?: any;
+      coverFile?: File;
       meta: {
         title: string;
         description: string;
@@ -49,7 +49,7 @@ const BlogDetailsView = ({ details, slug, type }: Props) => {
             title,
             content,
             status,
-            coverImage: formData?.coverFile,
+            coverImage: formData?.coverFile ?? null,
             meta,
           });
 
@@ -81,16 +81,20 @@ const BlogDetailsView = ({ details, slug, type }: Props) => {
         } else {
           throw new Error(response?.error || response?.message);
         }
-      } catch (error: any) {
-        showToast(
-          "ERROR",
-          error?.message || "Failed to update blog. Please try again."
-        );
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          showToast(
+            "ERROR",
+            error?.message || "Failed to update blog. Please try again."
+          );
+        } else {
+          showToast("ERROR", "Failed to update blog. Please try again.");
+        }
       } finally {
         toast.dismiss(loadindId);
       }
     },
-    [slug]
+    [slug, type]
   );
 
   return <BlogForm type={type} initialData={details} onSubmit={handleBlog} />;

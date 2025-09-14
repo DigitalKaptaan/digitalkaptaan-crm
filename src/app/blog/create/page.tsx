@@ -3,9 +3,7 @@ import { LayoutWrapper } from "@/layout";
 import { BlogDetailsView } from "@/sections";
 import React from "react";
 
-type Props = {};
-
-const page = (props: Props) => {
+const page = () => {
   return (
     <LayoutWrapper>
       <Breadcrumb />

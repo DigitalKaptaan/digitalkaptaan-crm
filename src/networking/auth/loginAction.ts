@@ -1,10 +1,19 @@
 "use server";
 
-import { setCookies } from "@/utils";
+import { getErrorMessage, setCookies } from "@/utils";
 import { https } from "../fetcher";
 import { dkUserDetail, tokenName } from "@/shared";
 
-export const loginAction = async (prevState: any, formData: FormData) => {
+type LoginState = {
+  data: unknown;
+  error?: string | null;
+  status: number;
+  message?: string;
+} | null;
+export const loginAction = async (
+  prevState: LoginState,
+  formData: FormData
+) => {
   try {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -39,12 +48,12 @@ export const loginAction = async (prevState: any, formData: FormData) => {
       error: res.error,
       status: res.status,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       data: null,
-      message: error?.message || "Something went wrong",
-      error: error?.message || "Something went wrong",
       status: 500,
+      error: getErrorMessage(error),
+      message: getErrorMessage(error),
     };
   }
 };

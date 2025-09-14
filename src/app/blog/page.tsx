@@ -4,9 +4,7 @@ import { BlogsView } from "@/sections";
 import Link from "next/link";
 import React from "react";
 
-type Props = {};
-
-const page = (props: Props) => {
+const page = () => {
   return (
     <LayoutWrapper>
       <Breadcrumb

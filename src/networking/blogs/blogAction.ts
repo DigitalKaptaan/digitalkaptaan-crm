@@ -1,4 +1,5 @@
 "use server";
+import { getErrorMessage } from "@/utils";
 import { https } from "../fetcher";
 
 export const getBlogListAction = async (page: number, pageSize: number) => {
@@ -17,12 +18,12 @@ export const getBlogListAction = async (page: number, pageSize: number) => {
       status: res.status,
       message: res?.data?.message,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       data: null,
-      error: error?.message || "Something went wrong",
-      message: error?.message || "Something went wrong",
       status: 500,
+      error: getErrorMessage(error),
+      message: getErrorMessage(error),
     };
   }
 };
@@ -40,12 +41,12 @@ export const getBlogDetailsBySlugAction = async (slug: string) => {
       status: res.status,
       message: res?.data?.message,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       data: null,
-      error: error?.message || "Something went wrong",
       status: 500,
-      message: error?.message || "Something went wrong",
+      error: getErrorMessage(error),
+      message: getErrorMessage(error),
     };
   }
 };
@@ -77,12 +78,12 @@ export const updateBlogDetailsBySlugAction = async (
       message: res?.data?.message,
       status: res.status,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       data: null,
-      error: error?.message || "Something went wrong",
-      message: error?.message || "Something went wrong",
       status: 500,
+      error: getErrorMessage(error),
+      message: getErrorMessage(error),
     };
   }
 };
@@ -130,12 +131,12 @@ export const createBlogAction = async (body: {
       message: res.data?.message || "Blog created successfully",
       status: res.status,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       data: null,
-      error: error?.message || "Something went wrong",
-      message: error?.message || "Something went wrong",
       status: 500,
+      error: getErrorMessage(error),
+      message: getErrorMessage(error),
     };
   }
 };

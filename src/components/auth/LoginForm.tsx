@@ -6,9 +6,7 @@ import { loginAction } from "@/networking";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-type Props = {};
-
-const LoginForm = (props: Props) => {
+const LoginForm = () => {
   const router = useRouter();
   const [state, formAction, isPending] = useActionState(loginAction, null);
 
@@ -26,7 +24,7 @@ const LoginForm = (props: Props) => {
 
       router.replace("/");
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <form method="POST" action={formAction}>

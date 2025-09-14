@@ -23,9 +23,7 @@ type BLOG = {
   __v: number;
 };
 
-type Props = {};
-
-const BlogsView = (props: Props) => {
+const BlogsView = () => {
   const { push } = useRouter();
   const { data, error, handlePageChange, loading, total } = useBlogs();
 
@@ -45,7 +43,7 @@ const BlogsView = (props: Props) => {
         ),
       },
     ],
-    []
+    [push]
   );
 
   return (

@@ -37,9 +37,9 @@ type TableProps<T> = {
   loading?: boolean;
 };
 
-function sortData<T>(arr: T[], key: string, dir: "asc" | "desc") {
+function sortData<T>(arr: T[], key: keyof T, dir: "asc" | "desc") {
   const copy = [...arr];
-  copy.sort((a: any, b: any) => {
+  copy.sort((a, b) => {
     const av = a?.[key];
     const bv = b?.[key];
     if (av == null) return 1;
@@ -55,7 +55,7 @@ function sortData<T>(arr: T[], key: string, dir: "asc" | "desc") {
   return copy;
 }
 
-export default function Table<T extends Record<string, any>>(
+export default function Table<T extends Record<string, unknown>>(
   props: TableProps<T>
 ) {
   const {
@@ -201,12 +201,15 @@ export default function Table<T extends Record<string, any>>(
                 </tr>
               ) : (
                 visibleRows.map((row, rIdx) => (
-                  <tr key={(row as any).id ?? rIdx} className={styles.tr}>
+                  <tr
+                    key={(row as { id?: string | number }).id ?? rIdx}
+                    className={styles.tr}
+                  >
                     {columns.map((col) => (
                       <td key={String(col.key)} className={styles.td}>
                         {col.render
                           ? col.render(row)
-                          : (row as any)[col.key as string]}
+                          : String(row[col.key] ?? "")}
                       </td>
                     ))}
                   </tr>

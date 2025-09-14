@@ -1,4 +1,4 @@
-import { getToken } from "@/utils";
+import { getErrorMessage, getToken } from "@/utils";
 
 const instance = {
   BASEURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
@@ -24,15 +24,19 @@ export const https = {
 
       const data = await response.json();
       return { status: response.status, data };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
-        status: error?.status || 500,
-        error: error.message || "Unknown error",
+        status: 500,
+        error: getErrorMessage(error),
       };
     }
   },
 
-  post: async (URL: string, body: any, option?: any) => {
+  post: async <T extends Record<string, unknown>>(
+    URL: string,
+    body: T | FormData,
+    option?: Record<string, string>
+  ) => {
     try {
       const isFormData = body instanceof FormData;
       const token = await getToken();
@@ -54,15 +58,15 @@ export const https = {
 
       const data = await response.json();
       return { status: response.status, data };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
-        status: error?.status || 500,
-        error: error.message || "Unknown error",
+        status: 500,
+        error: getErrorMessage(error),
       };
     }
   },
 
-  put: async (URL: string, body: any) => {
+  put: async <T extends Record<string, unknown>>(URL: string, body: T) => {
     try {
       const token = await getToken();
       const response = await fetch(`${instance.BASEURL}${URL}`, {
@@ -82,10 +86,10 @@ export const https = {
 
       const data = await response.json();
       return { status: response.status, data };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
-        status: error?.status || 500,
-        error: error.message || "Unknown error",
+        status: 500,
+        error: getErrorMessage(error),
       };
     }
   },
