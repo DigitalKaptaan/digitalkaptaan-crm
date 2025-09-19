@@ -17,7 +17,7 @@ export const https = {
         },
         cache: "no-store",
       });
-
+      console.log("response", response, `${instance.BASEURL}${URL}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
