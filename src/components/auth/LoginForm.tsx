@@ -45,7 +45,7 @@ const LoginForm = () => {
         required
       />
       <button type="submit" className={styles.loginBtn}>
-        {isPending ? "dsvhbshfk" : "Login"}
+        {isPending ? "Loading..." : "Login"}
       </button>
     </form>
   );
